@@ -75,6 +75,12 @@ public class InvisibleItemFramesCommand implements CommandExecutor, TabCompleter
 
         MultiLib.notify(itemFrame.getChunk(), "invisibleitemframes:toggle", itemFrame.getUniqueId() + "\t" + newVisible);
 
+        if (newVisible) {
+            player.sendMessage(Component.text("Item frame is now visible").color(NamedTextColor.GREEN));
+        } else {
+            player.sendMessage(Component.text("Item frame is now invisible").color(NamedTextColor.GREEN));
+        }
+
         return true;
     }
 
