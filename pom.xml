@@ -6,7 +6,7 @@
 
     <groupId>com.github.puregero.invisibleitemframes</groupId>
     <artifactId>invisible-item-frames</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>Make your item frames invisible</description>
 
     <name>InvisibleItemFrames</name>

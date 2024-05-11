@@ -1,6 +1,7 @@
 package com.github.puregero.invisibleitemframes;
 
 import com.github.puregero.multilib.MultiLib;
+import io.papermc.paper.event.player.PlayerItemFrameChangeEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,11 +63,17 @@ public class InvisibleItemFramesCommand implements CommandExecutor, TabCompleter
             return false;
         }
 
-        // Call an interact event to check the user has access to the item frame
+        // Call events to check the user has access to the item frame
+        PlayerInteractAtEntityEvent playerInteractAtEntityEvent = new PlayerInteractAtEntityEvent(player, itemFrame, itemFrame.getLocation().toVector());
+        Bukkit.getPluginManager().callEvent(playerInteractAtEntityEvent);
+        if (playerInteractAtEntityEvent.isCancelled()) {
+            player.sendMessage(Component.text("You do not have permission to toggle this item frame").color(NamedTextColor.RED));
+            return false;
+        }
 
-        PlayerInteractAtEntityEvent event = new PlayerInteractAtEntityEvent(player, itemFrame, itemFrame.getLocation().toVector());
-        Bukkit.getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
+        PlayerInteractEntityEvent playerInteractEntityEvent = new PlayerInteractEntityEvent(player, itemFrame);
+        Bukkit.getPluginManager().callEvent(playerInteractEntityEvent);
+        if (playerInteractEntityEvent.isCancelled()) {
             player.sendMessage(Component.text("You do not have permission to toggle this item frame").color(NamedTextColor.RED));
             return false;
         }

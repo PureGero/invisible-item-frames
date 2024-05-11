@@ -14,4 +14,4 @@ frames invisible!
    `mvn`
 
 2. The plugin jar is available at:  
-   `target/invisible-item-frames-1.0.0.jar`
+   `target/invisible-item-frames-1.0.1.jar`
